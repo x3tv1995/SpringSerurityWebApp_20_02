@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Список пользователей</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f8ff; /* Light blue background */
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      width: 80%;
+      max-width: 800px;
+      overflow-x: auto; /* For smaller screens */
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff; /* Blue color for the heading */
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #007bff; /* Blue color for header */
+      color: white;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2; /* Light grey for even rows */
+    }
+
+    tr:hover {
+      background-color: #ddd; /* Darker grey on hover */
+    }
+
+    .no-users {
+      text-align: center;
+      font-style: italic;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Список пользователей</h1>
+
+  <th:block th:if="${users.isEmpty()}">
+    <p class="no-users">Нет пользователей для отображения.</p>
+  </th:block>
+
+  <th:block th:unless="${users.isEmpty()}">
+    <table>
+      <thead>
+      <tr>
+        <th>Имя пользователя</th>
+        <th>Email</th>
+        <th>Роль</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="user : ${users}">
+        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getRole()}"></td> <!--  Изменено здесь -->
+      </tr>
+      </tbody>
+    </table>
+  </th:block>
+</div>
+</body>
+</html>

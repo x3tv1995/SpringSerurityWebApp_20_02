@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Example Menu</title>
+    <style>
+        /* Общие стили для навигационного меню */
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background-color: #f0f0f0;
+        }
+
+        nav li {
+            margin-right: 10px;
+        }
+
+        /* Основные стили для ссылок-кнопок */
+        nav a {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Изменение цвета при наведении */
+        nav a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Отдельные стили для кнопок входа/выхода */
+        nav a.login-button,
+        nav a.logout-button {
+            background-color: #28a745;
+        }
+
+        nav a.login-button:hover,
+        nav a.logout-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="menu">
+    <nav>
+        <ul>
+            <!-- Пункты меню для всех -->
+
+
+
+            <!-- Пункт меню для зарегистрированных пользователей
+            <li sec:authorize="isAuthenticated()"><a href="/profile">Профиль</a></li>-->
+
+            <!-- Пункт меню для администраторов -->
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/accounts">Администрирование</a></li>
+            <li sec:authorize="!isAuthenticated()"><a href="/register">Регистрация</a></li>
+            <!-- Кнопки входа/выхода -->
+            <li sec:authorize="!isAuthenticated()"><a class="login-button" href="/login">Войти</a></li>
+            <li sec:authorize="isAuthenticated()"><a class="logout-button" href="/logout">Выйти</a></li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>
