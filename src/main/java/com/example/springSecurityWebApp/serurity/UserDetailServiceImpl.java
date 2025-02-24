@@ -21,15 +21,16 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetailsImpl loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user =  userRepository.findByUsername(username);
+        User user =  userRepository.findByUsername(username).orElseThrow(()->
+                new RuntimeException("Не существует юзера с таким именем"));
 
 
         UserDetailsImpl userDetails = new UserDetailsImpl();
-        userDetails.setUsername(user.get().getUsername());
-        userDetails.setPassword(user.get().getPassword());
+        userDetails.setUsername(user.getUsername());
+        userDetails.setPassword(user.getPassword());
 
         List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority(PREFIX_ROLE + user.get().getRole().name()));
+        roles.add(new SimpleGrantedAuthority(PREFIX_ROLE + user.getRole().name()));
 
 
         userDetails.setRoles(roles);

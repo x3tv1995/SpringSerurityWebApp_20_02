@@ -37,7 +37,7 @@ public class SecurityConfig {
       }
 
       @Bean
-      public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
+      public AuthenticationProvider authenticationProvider(UserDetailServiceImpl userDetailsService) {
             DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
             authenticationProvider.setUserDetailsService(userDetailsService);
             authenticationProvider.setPasswordEncoder(passwordEncoder());
@@ -68,10 +68,9 @@ public class SecurityConfig {
                   .loginPage("/login")
                   .defaultSuccessUrl("/menu")
                   .permitAll()
-                  .failureForwardUrl("/login?login")
+                  .failureUrl("/login?error")
 
-
-          );
+                  );
 
           return http.build();
       }
